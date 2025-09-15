@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sidebar-width: 300px;
+  --gradient-start: 258 90% 66%;
+  --gradient-end: 220 90% 55%;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  @apply relative bg-gradient-to-br from-brand-50 via-white to-white dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-900 text-neutral-800 dark:text-neutral-100 antialiased;
+  min-height: 100vh;
+}
+
+/* Stronger subtle gradient overlay so tidak terlihat full putih di layar sangat terang */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 25% 20%, rgba(99, 102, 241, 0.18), transparent 60%),
+    radial-gradient(circle at 85% 70%, rgba(147, 51, 234, 0.15), transparent 65%);
+  z-index: -1;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-300/80 dark:bg-neutral-700/70 rounded-full border border-transparent hover:bg-neutral-400 dark:hover:bg-neutral-600 transition-colors;
+}
+
+/* Animations */
+.fade-in {
+  animation: fade-in 0.3s ease;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.scale-in {
+  animation: scale-in 0.25s ease;
+}
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-slide-in {
+  animation: slide-in 0.25s ease;
+}
+@keyframes slide-in {
+  from {
+    transform: translateX(-8%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Theme toggle icon animation */
+.theme-icon-animate {
+  animation: theme-spin-fade 600ms ease forwards;
+  transform-origin: 50% 50%;
+}
+@keyframes theme-spin-fade {
+  0% {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.4);
+  }
+  40% {
+    opacity: 1;
+    transform: rotate(-90deg) scale(0.85);
+  }
+  70% {
+    opacity: 1;
+    transform: rotate(-20deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+/* Cards / surfaces */
+.surface {
+  @apply bg-white/70 dark:bg-neutral-800/60 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 shadow-sm rounded-xl;
+}
+.surface-soft {
+  @apply bg-white/50 dark:bg-neutral-800/40 backdrop-blur-sm rounded-lg;
+}
+
+/* Typography tweaks */
+h1,
+h2,
+h3,
+h4 {
+  @apply font-semibold tracking-tight;
+}
+
+/* Editor */
+.prose-note textarea {
+  @apply w-full min-h-[180px] bg-transparent outline-none resize-y leading-relaxed;
+}
+
+/* Glass utility (legacy support) */
+.dark .glass {
+  @apply bg-neutral-800/60 backdrop-blur;
+}
+.glass {
+  @apply bg-white/60 backdrop-blur;
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium border border-neutral-300 dark:border-neutral-700 bg-white/60 dark:bg-neutral-800/60 hover:bg-white dark:hover:bg-neutral-700 transition-colors backdrop-blur-sm disabled:opacity-60 disabled:cursor-not-allowed;
+}
+.btn-primary {
+  @apply bg-brand-600 text-white hover:bg-brand-500 border-brand-600 shadow-sm;
+}
+.btn-danger {
+  @apply bg-red-600 text-white hover:bg-red-500 border-red-600 shadow-sm;
+}
+.btn-ghost {
+  @apply border-transparent bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800;
+}
+
+/* Inputs */
+.input {
+  @apply w-full px-3 py-2 rounded-md bg-neutral-50/80 dark:bg-neutral-800/70 border border-neutral-300 dark:border-neutral-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 backdrop-blur-sm;
+}
+
+/* Tags */
+.tag {
+  @apply inline-flex items-center gap-1 bg-brand-100/80 dark:bg-brand-700/40 text-brand-700 dark:text-brand-200 px-2 py-0.5 rounded-full text-[10px] font-medium tracking-wide uppercase;
+}
+.tag-interactive {
+  @apply cursor-pointer hover:brightness-110 active:scale-95 transition;
+}
+
+/* Utility layout */
+.sidebar-shadow {
+  @apply shadow-[2px_0_6px_-2px_rgba(0,0,0,0.05)] dark:shadow-[2px_0_6px_-2px_rgba(0,0,0,0.5)];
+}
+
+/* Dark mode transitions */
+html {
+  @apply transition-colors;
+}
+body,
+.surface,
+.btn,
+.input {
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s;
+}
+
+/* Markdown inline code */
+code.inline-code {
+  background: rgba(0, 0, 0, 0.06);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+}
